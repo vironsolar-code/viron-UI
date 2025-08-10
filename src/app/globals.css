@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @custom-variant dark (&:is(.dark *));
@@ -58,8 +58,8 @@
   --color-success-green: #10B981;
 
   /* Typography */
-  --font-display: "Inter", sans-serif;
-  --font-body: "Inter", sans-serif;
+  --font-display: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
   /* Shadcn/UI default radius & animation - DO NOT REMOVE OR RENAME */
@@ -154,22 +154,27 @@
     color: var(--foreground);
     font-family: var(--font-body);
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    letter-spacing: 0em;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     color: var(--neutral-black); /* Headings use Neutral Black as per design vision */
-    line-height: 1.25;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
   h1 {
-    font-size: 64px;
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800; /* Hero font weight */
   }
 
   h2 {
-    font-size: 48px;
+    font-size: clamp(2rem, 3.5vw, 3rem);
     font-weight: 700;
   }
 
@@ -198,11 +203,13 @@
     font-size: 16px;
     font-weight: 400;
     color: var(--neutral-gray); /* Paragraphs use Neutral Gray as per design vision */
+    letter-spacing: 0.005em;
   }
 
   a {
     color: var(--primary);
     text-decoration: none;
+    transition: color 150ms ease;
   }
 
   a:hover {
@@ -249,5 +256,14 @@
     margin-inline: auto;
     padding-inline: 2rem;
     max-width: 1280px; /* Example max-width, adjust as needed */
+  }
+
+  /* Aurora-like details */
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--neutral-gray);
   }
 }
