@@ -73,7 +73,7 @@ export const NewsletterFooter = () => {
         {/* Logo and newsletter section */}
         <div className="mb-10 flex flex-col items-start justify-between gap-10 border-b pb-10 sm:mb-16 sm:pb-12 md:flex-row">
           <div className="w-full max-w-full sm:max-w-sm">
-            <a href="/" className="mb-6 inline-block">
+            <a href="#" onClick={(e) => e.preventDefault()} className="mb-6 inline-block">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
                   <span className="text-lg font-bold text-primary-foreground">K</span>
@@ -178,7 +178,8 @@ export const NewsletterFooter = () => {
           <p className="order-2 text-center text-sm text-muted-foreground sm:text-left md:order-1">
             © {new Date().getFullYear()} Kyren Solar. All rights reserved.{" "}
             <a
-              href="/"
+              href="#"
+              onClick={(e) => e.preventDefault()}
               className="text-foreground underline underline-offset-4 transition-colors hover:text-primary"
             >
               kyrensolar.com
