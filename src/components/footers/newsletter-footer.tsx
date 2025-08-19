@@ -54,8 +54,8 @@ const contactInfo = [
   { 
     icon: Mail, 
     label: "Email", 
-    value: "info@kyrensolar.com",
-    href: "mailto:info@kyrensolar.com"
+    value: "info@vironsolar.com",
+    href: "mailto:info@vironsolar.com"
   },
 ];
 
@@ -179,7 +179,7 @@ export const NewsletterFooter = () => {
               onClick={(e) => e.preventDefault()}
               className="text-foreground underline underline-offset-4 transition-colors hover:text-primary"
             >
-              kyrensolar.com
+              vironsolar.com
             </a>
           </p>
         </div>
