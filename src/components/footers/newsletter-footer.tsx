@@ -60,10 +60,7 @@ const contactInfo = [
 ];
 
 const offices = [
-  { city: "Delhi", address: "Connaught Place, New Delhi - 110001" },
-  { city: "Mumbai", address: "Bandra Kurla Complex, Mumbai - 400051" },
-  { city: "Bangalore", address: "Koramangala, Bangalore - 560034" },
-  { city: "Chennai", address: "Anna Nagar, Chennai - 600040" },
+  { city: "Hyderabad", address: "Banjara Hills, Hyderabad - 500034" },
 ];
 
 export const NewsletterFooter = () => {

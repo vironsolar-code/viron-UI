@@ -10,7 +10,6 @@ const ITEMS = [
   { label: "Calculator", href: "#" },
   { label: "About", href: "#" },
   { label: "Blog", href: "#" },
-  { label: "Projects", href: "#" },
 ];
 
 const logo = {

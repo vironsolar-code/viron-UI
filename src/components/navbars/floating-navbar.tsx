@@ -20,8 +20,7 @@ const ITEMS = [
 { label: "Why Choose Us", href: "#" },
 { label: "Calculator", href: "#" },
 { label: "About", href: "#" },
-{ label: "Blog", href: "#" },
-{ label: "Projects", href: "#" }];
+{ label: "Blog", href: "#" }];
 
 
 const logo = {
