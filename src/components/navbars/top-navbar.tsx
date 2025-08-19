@@ -7,18 +7,28 @@ import { Button } from "@/components/ui/button";
 const ITEMS = [
   { label: "Home", href: "#" },
   { label: "Why Choose Us", href: "#" },
-  { label: "Calculator", href: "#" },
+  { label: "Calculator", href: "#solar-calculator-section" },
   { label: "About", href: "#" },
   { label: "Blog", href: "#" },
 ];
 
 const logo = {
   url: "/",
-  title: "Kyren Solar",
+  title: "Viron Solar",
 };
 
 export function TopNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#') && href.length > 1) {
+      e.preventDefault();
+      const el = document.querySelector(href);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
@@ -26,7 +36,7 @@ export function TopNavbar() {
         {/* Logo */}
         <a href={logo.url} className="flex items-center gap-2" title={logo.title}>
           <span className="text-xl font-bold text-[var(--color-neutral-black)]">
-            Kyren Solar
+            Viron Solar
           </span>
         </a>
 
@@ -39,6 +49,7 @@ export function TopNavbar() {
               className={cn(
                 "text-sm font-medium text-muted-foreground hover:text-[var(--color-neutral-black)] transition-colors"
               )}
+              onClick={e => handleSmoothScroll(e, link.href)}
             >
               {link.label}
             </a>

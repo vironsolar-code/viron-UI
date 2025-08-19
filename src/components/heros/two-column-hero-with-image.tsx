@@ -1,3 +1,4 @@
+"use client"
 import { ArrowRight, ArrowUpRight, Sun } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -26,7 +27,7 @@ const TwoColumnHeroWithImage = () => {
             className="bg-primary text-white border-0 hover:bg-orange-light transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             <Sun className="mr-2 size-3.5 text-white" />
-            India's Most Affordable Solar
+            India's Most Affordable Solar Company
             <ArrowUpRight className="ml-2 size-4" />
           </Badge>
 
@@ -50,17 +51,23 @@ const TwoColumnHeroWithImage = () => {
           <div className="flex w-full flex-col justify-center gap-3 sm:flex-row pt-4">
             <Button
               size="lg"
-              className="w-full sm:w-auto group bg-primary hover:bg-orange-light text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-full px-8"
+              className="w-full sm:w-auto group bg-primary text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-full px-8"
             >
               Get Free Quote
-              <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowUpRight className="ml-2 size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </Button>
             <Button
               size="lg"
-              className="w-full sm:w-auto group bg-white hover:bg-gray-100 text-neutral-black border border-gray-200 rounded-full px-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="w-full sm:w-auto group bg-white hover:bg-white text-primary border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-full px-8"
+              onClick={e => {
+                const el = document.querySelector('#solar-calculator-section');
+                if (el) {
+                  el.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
               Calculate Savings
-              <ArrowUpRight className="ml-2 size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <ArrowRight className="ml-2 size-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>

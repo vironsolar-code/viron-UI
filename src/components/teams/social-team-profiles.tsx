@@ -10,7 +10,7 @@ const teamMembers = [
     name: "Rajesh Kumar",
     role: "Founder & CEO",
     image: "https://api.dicebear.com/9.x/adventurer/svg?seed=Rajesh%20Kumar",
-    bio: "Rajesh founded Kyren Solar with 15+ years in renewable energy, dedicated to making solar accessible to every Indian household.",
+    bio: "Rajesh founded Viron Solar with 15+ years in renewable energy, dedicated to making solar accessible to every Indian household.",
     social: { twitter: "#", github: "#" },
   },
   {
@@ -66,7 +66,7 @@ const SocialTeamProfiles = () => {
             Meet the Solar Experts
           </h2>
           <p className="max-w-[600px] tracking-[-0.32px] text-neutral-gray font-[var(--font-body)]">
-            Our mission at Kyren Solar is to make clean, affordable solar energy accessible to every home across India. Meet the passionate experts making this vision a reality.
+            Our mission at Viron Solar is to make clean, affordable solar energy accessible to every home across India. Meet the passionate experts making this vision a reality.
           </p>
         </div>
         <div className="mt-10 grid gap-x-12 gap-y-16 sm:grid-cols-2 md:mt-14 lg:grid-cols-3">

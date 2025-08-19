@@ -42,7 +42,7 @@ const ResponsiveGridCasestudies = () => {
                 </div>
               </div>
               <blockquote className="text-16 font-normal text-white italic bg-black/20 backdrop-blur-sm rounded-lg p-3">
-                "Our electricity bill dropped by 80%. Kyren Solar made the entire process seamless!"
+                "Our electricity bill dropped by 80%. Viron Solar made the entire process seamless!"
               </blockquote>
             </div>
           </a>

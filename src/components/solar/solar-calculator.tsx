@@ -111,7 +111,7 @@ export default function SolarCalculator() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-48 font-bold text-neutral-black mb-4">
-              Calculate Your Solar Savings
+              <span id="solar-calculator-section">Calculate Your Solar Savings</span>
             </h2>
             <p className="text-18 text-neutral-gray max-w-2xl mx-auto">
               Get an instant estimate of your solar installation cost and savings potential using state-specific tariff rates
@@ -178,7 +178,13 @@ export default function SolarCalculator() {
                     </div>
 
                     <Button
-                      onClick={calculateSavings}
+                      onClick={e => {
+                        calculateSavings();
+                        const el = document.querySelector('#solar-calculator-section');
+                        if (el) {
+                          el.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
                       disabled={!monthlyBill || !city || isCalculating}
                       className="w-full h-12 text-16 font-medium bg-primary hover:bg-orange-light text-primary-foreground transition-colors"
                     >

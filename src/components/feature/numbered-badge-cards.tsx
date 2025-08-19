@@ -62,7 +62,7 @@ const NumberedBadgeCards = () => {
       <div className="container">
         <div className="flex flex-col items-center pb-4 text-center">
           <h1 className="pb-3 text-2xl font-semibold sm:text-3xl md:text-4xl lg:text-5xl text-neutral-black">
-            Why Choose Kyren Solar
+            Why Choose Viron Solar
           </h1>
           <p className="text-muted-foreground max-w-md text-sm lg:max-w-2xl lg:text-lg">
             Experience the difference with our comprehensive solar solutions designed for your peace of mind.

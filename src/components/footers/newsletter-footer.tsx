@@ -75,7 +75,7 @@ export const NewsletterFooter = () => {
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
                   <span className="text-lg font-bold text-primary-foreground">K</span>
                 </div>
-                <span className="text-2xl font-bold text-foreground">Kyren Solar</span>
+                <span className="text-2xl font-bold text-foreground">Viron Solar</span>
               </div>
             </a>
             <p className="mb-8 text-base text-muted-foreground">
@@ -173,7 +173,7 @@ export const NewsletterFooter = () => {
 
           {/* Copyright - Below on mobile, left on desktop */}
           <p className="order-2 text-center text-sm text-muted-foreground sm:text-left md:order-1">
-            © {new Date().getFullYear()} Kyren Solar. All rights reserved.{" "}
+            © {new Date().getFullYear()} Viron Solar. All rights reserved.{" "}
             <a
               href="#"
               onClick={(e) => e.preventDefault()}
