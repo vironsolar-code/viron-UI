@@ -1,5 +1,6 @@
 "use client"
 import { ArrowRight, ArrowUpRight, Sun } from "lucide-react";
+import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -49,13 +50,15 @@ const TwoColumnHeroWithImage = () => {
           </p>
 
           <div className="flex w-full flex-col justify-center gap-3 sm:flex-row pt-4">
-            <Button
-              size="lg"
-              className="w-full sm:w-auto group bg-primary text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-full px-8"
-            >
-              Get Free Quote
-              <ArrowUpRight className="ml-2 size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </Button>
+            <Link href="/quote">
+              <Button
+                size="lg"
+                className="w-full sm:w-auto group bg-primary text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-full px-8"
+              >
+                Get Free Quote
+                <ArrowUpRight className="ml-2 size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </Button>
+            </Link>
             <Button
               size="lg"
               className="w-full sm:w-auto group bg-white hover:bg-white text-primary border-0 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-full px-8"
