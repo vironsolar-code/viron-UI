@@ -6,17 +6,37 @@ const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID;
 const SHEET_NAME = 'Sheet1'; // Default sheet name in Google Sheets
 
 // Service account credentials from environment variables
-const credentials = {
-  type: 'service_account',
-  project_id: process.env.GOOGLE_PROJECT_ID,
-  private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
-  private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-  client_email: process.env.GOOGLE_CLIENT_EMAIL,
-  client_id: process.env.GOOGLE_CLIENT_ID,
-  auth_uri: 'https://accounts.google.com/o/oauth2/auth',
-  token_uri: 'https://oauth2.googleapis.com/token',
-  auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
-  client_x509_cert_url: process.env.GOOGLE_CLIENT_X509_CERT_URL,
+const getCredentials = () => {
+  // Ensure private key is properly formatted for Vercel
+  let privateKey = process.env.GOOGLE_PRIVATE_KEY;
+  if (privateKey) {
+    // Handle different possible formats of the private key in environment variables
+    privateKey = privateKey.replace(/\\n/g, '\n');
+    // Ensure proper line breaks for PEM format
+    if (!privateKey.includes('\n')) {
+      privateKey = privateKey.replace(/-----BEGIN PRIVATE KEY-----/, '-----BEGIN PRIVATE KEY-----\n');
+      privateKey = privateKey.replace(/-----END PRIVATE KEY-----/, '\n-----END PRIVATE KEY-----');
+      // Add line breaks every 64 characters in the key body
+      const keyStart = '-----BEGIN PRIVATE KEY-----\n';
+      const keyEnd = '\n-----END PRIVATE KEY-----';
+      const keyBody = privateKey.replace(/-----BEGIN PRIVATE KEY-----\n?/, '').replace(/\n?-----END PRIVATE KEY-----/, '');
+      const formattedKeyBody = keyBody.match(/.{1,64}/g)?.join('\n') || keyBody;
+      privateKey = keyStart + formattedKeyBody + keyEnd;
+    }
+  }
+
+  return {
+    type: 'service_account',
+    project_id: process.env.GOOGLE_PROJECT_ID,
+    private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
+    private_key: privateKey,
+    client_email: process.env.GOOGLE_CLIENT_EMAIL,
+    client_id: process.env.GOOGLE_CLIENT_ID,
+    auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+    token_uri: 'https://oauth2.googleapis.com/token',
+    auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+    client_x509_cert_url: process.env.GOOGLE_CLIENT_X509_CERT_URL,
+  };
 };
 
 export async function POST(request: NextRequest) {
@@ -48,6 +68,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Authenticate with Google Sheets API
+    const credentials = getCredentials();
     const auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
@@ -160,6 +181,7 @@ export async function POST(request: NextRequest) {
 // Function to create headers if they don't exist
 async function createSheetHeaders() {
   try {
+    const credentials = getCredentials();
     const auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
@@ -198,6 +220,7 @@ async function createSheetHeaders() {
 // Function to check if headers exist
 async function checkHeadersExist() {
   try {
+    const credentials = getCredentials();
     const auth = new google.auth.GoogleAuth({
       credentials,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
