@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 const TwoColumnHeroWithImage = () => {
   return (
-    <section className="py-32 relative overflow-hidden min-h-screen flex items-center">
+    <section id="home" className="py-32 relative overflow-hidden min-h-screen flex items-center">
       {/* Background Image */}
       <img
         src="/img-solar.jpg"

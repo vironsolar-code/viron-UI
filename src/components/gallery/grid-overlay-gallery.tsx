@@ -134,7 +134,7 @@ const BlogCard = ({ title, excerpt, category, readTime, publishDate, image, link
 
 const GridOverlayGallery = () => {
   return (
-    <section className="py-32 bg-pure-white">
+    <section id="about" className="py-32 bg-pure-white">
       <div className="container">
         <div className="text-center mb-16">
           <h2 className="text-48 font-bold text-neutral-black mb-4">

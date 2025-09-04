@@ -58,7 +58,7 @@ const DATA: DataItem[] = [
 
 const NumberedBadgeCards = () => {
   return (
-    <section className="bg-accent py-32">
+    <section id="why-choose-us" className="bg-accent py-32">
       <div className="container">
         <div className="flex flex-col items-center pb-4 text-center">
           <h1 className="pb-3 text-2xl font-semibold sm:text-3xl md:text-4xl lg:text-5xl text-neutral-black">

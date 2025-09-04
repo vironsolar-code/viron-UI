@@ -1,15 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const ITEMS = [
-  { label: "Home", href: "#" },
-  { label: "Why Choose Us", href: "#" },
+  { label: "Home", href: "#home" },
+  { label: "Why Choose Us", href: "#why-choose-us" },
   { label: "Calculator", href: "#solar-calculator-section" },
-  { label: "About", href: "#" },
-  { label: "Blog", href: "#" },
+  { label: "About", href: "#about" },
+  { label: "Blog", href: "/blog" },
 ];
 
 const logo = {
@@ -19,15 +20,48 @@ const logo = {
 
 export function TopNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#') && href.length > 1) {
       e.preventDefault();
+
+      // If we're not on the homepage and clicking a section link, navigate to homepage first
+      if (pathname !== '/' && href !== '#home') {
+        router.push(`/${href}`);
+        return;
+      }
+
+      // Handle home link - if not on homepage, go to homepage
+      if (href === '#home' && pathname !== '/') {
+        router.push('/');
+        return;
+      }
+
+      // Smooth scroll to section
       const el = document.querySelector(href);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth' });
       }
+    } else if (href === '/blog') {
+      e.preventDefault();
+      alert('Blog section coming soon! Check out our solar insights in the About section.');
+      // Navigate to about section as fallback
+      if (pathname === '/') {
+        const el = document.querySelector('#about');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        router.push('/#about');
+      }
     }
+  };
+
+  const handleQuoteClick = () => {
+    // Always navigate directly to quote page for immediate conversion
+    router.push('/quote');
   };
 
   return (
@@ -55,14 +89,13 @@ export function TopNavbar() {
             </a>
           ))}
 
-          <a href="#quote">
-            <Button
-              style={{ backgroundColor: "#FF6B35" }}
-              className="text-white hover:bg-[var(--color-orange-light)] transition-colors"
-            >
-              <span className="relative z-10">Get a Quote</span>
-            </Button>
-          </a>
+          <Button
+            onClick={handleQuoteClick}
+            style={{ backgroundColor: "#FF6B35" }}
+            className="text-white hover:bg-[#E55A2B] active:scale-95 transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer"
+          >
+            <span className="relative z-10">Get a Quote</span>
+          </Button>
         </div>
 
         {/* Mobile hamburger */}
@@ -122,14 +155,16 @@ export function TopNavbar() {
               </a>
             ))}
             <div className="pt-4">
-              <a href="#quote" onClick={() => setIsMenuOpen(false)}>
-                <Button
-                  style={{ backgroundColor: "#FF6B35" }}
-                  className="w-full text-white hover:bg-[var(--color-orange-light)] transition-colors"
-                >
-                  Get a Quote
-                </Button>
-              </a>
+              <Button
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  handleQuoteClick();
+                }}
+                style={{ backgroundColor: "#FF6B35" }}
+                className="w-full text-white hover:bg-[#E55A2B] active:scale-[0.98] transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer"
+              >
+                Get a Quote
+              </Button>
             </div>
           </nav>
         </div>
