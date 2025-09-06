@@ -7,23 +7,33 @@ const SHEET_NAME = 'Sheet1'; // Default sheet name in Google Sheets
 
 // Service account credentials from environment variables
 const getCredentials = () => {
-  // Ensure private key is properly formatted for Vercel
   let privateKey = process.env.GOOGLE_PRIVATE_KEY;
-  if (privateKey) {
-    // Handle different possible formats of the private key in environment variables
-    privateKey = privateKey.replace(/\\n/g, '\n');
-    // Ensure proper line breaks for PEM format
-    if (!privateKey.includes('\n')) {
-      privateKey = privateKey.replace(/-----BEGIN PRIVATE KEY-----/, '-----BEGIN PRIVATE KEY-----\n');
-      privateKey = privateKey.replace(/-----END PRIVATE KEY-----/, '\n-----END PRIVATE KEY-----');
-      // Add line breaks every 64 characters in the key body
-      const keyStart = '-----BEGIN PRIVATE KEY-----\n';
-      const keyEnd = '\n-----END PRIVATE KEY-----';
-      const keyBody = privateKey.replace(/-----BEGIN PRIVATE KEY-----\n?/, '').replace(/\n?-----END PRIVATE KEY-----/, '');
-      const formattedKeyBody = keyBody.match(/.{1,64}/g)?.join('\n') || keyBody;
-      privateKey = keyStart + formattedKeyBody + keyEnd;
-    }
+
+  if (!privateKey) {
+    throw new Error('GOOGLE_PRIVATE_KEY environment variable is not set');
   }
+
+  console.log('Private key debug info:', {
+    length: privateKey.length,
+    startsWithBegin: privateKey.startsWith('-----BEGIN PRIVATE KEY-----'),
+    endsWithEnd: privateKey.endsWith('-----END PRIVATE KEY-----'),
+    hasNewlines: privateKey.includes('\n'),
+    hasEscapedNewlines: privateKey.includes('\\n')
+  });
+
+  // Simple and robust private key formatting for production
+  privateKey = privateKey.replace(/\\n/g, '\n');
+
+  // Ensure the private key has proper PEM format
+  if (!privateKey.includes('-----BEGIN PRIVATE KEY-----')) {
+    throw new Error('Invalid private key format: missing BEGIN marker');
+  }
+  if (!privateKey.includes('-----END PRIVATE KEY-----')) {
+    throw new Error('Invalid private key format: missing END marker');
+  }
+
+  // Remove any extra whitespace and ensure proper formatting
+  privateKey = privateKey.trim();
 
   return {
     type: 'service_account',
@@ -149,21 +159,45 @@ export async function POST(request: NextRequest) {
 
     // Handle specific Google API errors
     if (error instanceof Error) {
+      console.error('Error details:', {
+        message: error.message,
+        name: error.name,
+        stack: error.stack
+      });
+
+      // Handle OpenSSL/private key errors
+      if (error.message.includes('DECODER routines') || error.message.includes('unsupported')) {
+        return NextResponse.json(
+          { error: 'Authentication configuration error. Please check your Google service account private key format.' },
+          { status: 500 }
+        );
+      }
+
       if (error.message.includes('SPREADSHEET_ID')) {
         return NextResponse.json(
           { error: 'Google Sheets configuration error. Please check your SPREADSHEET_ID.' },
           { status: 500 }
         );
       }
+
       if (error.message.includes('access_token') || error.message.includes('insufficient_scope')) {
         return NextResponse.json(
           { error: 'Authentication error. Please ensure the Google Sheet is shared with the service account email.' },
           { status: 500 }
         );
       }
+
       if (error.message.includes('permission') || error.message.includes('forbidden')) {
         return NextResponse.json(
           { error: 'Permission denied. Please share the Google Sheet with: viron-solar-get-quote@testing-470818.iam.gserviceaccount.com' },
+          { status: 500 }
+        );
+      }
+
+      // Handle credential validation errors
+      if (error.message.includes('Invalid private key format')) {
+        return NextResponse.json(
+          { error: 'Invalid private key format. Please ensure your GOOGLE_PRIVATE_KEY environment variable contains a valid PEM-formatted private key.' },
           { status: 500 }
         );
       }
