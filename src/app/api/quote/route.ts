@@ -2,67 +2,30 @@ import { google } from 'googleapis';
 import { NextRequest, NextResponse } from 'next/server';
 
 // Google Sheets configuration
-const SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID;
+const SPREADSHEET_ID = '1SF51eS24cctTDOOYoG3W6b4OKh9dJwSc89Z4jAppBYE';
 const SHEET_NAME = 'Sheet1'; // Default sheet name in Google Sheets
 
-// Service account credentials from environment variables
+// Service account credentials - hardcoded for testing
 const getCredentials = () => {
-  let privateKey = process.env.GOOGLE_PRIVATE_KEY;
-
-  if (!privateKey) {
-    throw new Error('GOOGLE_PRIVATE_KEY environment variable is not set');
-  }
-
-  console.log('Private key debug info:', {
-    length: privateKey.length,
-    startsWithBegin: privateKey.startsWith('-----BEGIN PRIVATE KEY-----'),
-    endsWithEnd: privateKey.endsWith('-----END PRIVATE KEY-----'),
-    hasNewlines: privateKey.includes('\n'),
-    hasEscapedNewlines: privateKey.includes('\\n')
-  });
-
-  // Simple and robust private key formatting for production
-  privateKey = privateKey.replace(/\\n/g, '\n');
-
-  // Ensure the private key has proper PEM format
-  if (!privateKey.includes('-----BEGIN PRIVATE KEY-----')) {
-    throw new Error('Invalid private key format: missing BEGIN marker');
-  }
-  if (!privateKey.includes('-----END PRIVATE KEY-----')) {
-    throw new Error('Invalid private key format: missing END marker');
-  }
-
-  // Remove any extra whitespace and ensure proper formatting
-  privateKey = privateKey.trim();
+  const privateKey = `-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDGlioLJe8I22R6\n/c3xiZnIBGv9RzTAOCmjMSqnCO/f6m9Y8pqRWJBS9wfKkBbW4zt/vruOsO/hS09a\nHfEyWrgbdg89lre8QQwxhrk8vvmkiBzATgh5hFQOH8nPy/zauq2DM9Rsu/Wwqjim\nhlJ1BpHml5UKuC5mMIuplAVczqRAcmbDgq7/MCYAvz9vNXTtaFFqI3N3uy5Bfhnp\njkDXZzUB1Yqw3TGqYhJUw8dA/Nm1+TPgPN+rYqIVYFAe3DXM1vm+hUByPaiTBk7D\nS8nBhwks2YLI2EPyOZqRmTzC99DLJ5OafqHRMtSsqegyPlzgwz6mbX0TOgkzV86m\n7QDqUb2FAgMBAAECggEARO/zB2yzNplmn7WErQEN89vpGwMBgmrctWyHeHXHQ61v\n2upZEvSyIULlHwH3E8DNMlLlbCrrEwQgN1HmnYrVl57buo8cGEtibrzsh/Rp2B5y\nEKXmFj0EKuUJG0wealXcjwvKhbaYGyx0PwapEDvoISrkz9RRMyNOEF+0ntuTNFWF\n1KolC/CufV5kUF7q+fiXgiucpsmuXYYIYDzrHp3UoxWTM24FVK79HWCoR/4y/DZy\n556drWeOdlkuHBC6y4SUki8WnBDslFW+PzP4PNBOBdlh+6HqXn7zZMAziEmhyAnh\neBILW2h/yWrSa1Xfk4Ta0J8auXFDHUfr0ATB0IVAjwKBgQDnFhI+7wcZKy7vp8IH\nPvftGZyHpXcbI4qlmDXtXkU7NOgXrEjNP18nFeRYrsEHOgy5BUs0WCTOzxUCiMIO\npo5fHsd15lQ8PCxm2zJDLNd/rADaxkrQZ8s7H7Dn4b2HEh5yPXRC2JKiZPORKM8s\nh7MLR3tJOf0kJkTsZ6VQan7r6wKBgQDb/xwxixSA/NM0qFocrnjWSzbpizmi4duw\nshRXDoQOKyGOcK+AkcivEwkdcdOis4o7pjErXItw318eg62RYECUeLXVFqBqU+kh\nLUWi3FumzZbkl9/WJEtSkd/03jLsJSRpdABHPu7ZZFZf+DWGwz+PBdPEKU+RTzoQ\nXcGzwmjQTwKBgAOIeNrxeKBP4rXTUMofklbTr2r7gqitkG8btqdca56OHoZOIgbR\nUzkbwpQAh/7+SjeB9zZjqpxm2iFhyeXDciXOKKqKzPrmyJ8B9vDD/L98975gjcBF\n9ft/bor9DpLEGicQ/XgQK53EAV1UzGYX5QrlGuNxuYcV9rPOmd5y4mHlAoGBANUB\nFm0pujqBkIVlk4o9q6XgwVQyhyWcBTf51BPObDHDtQPTOzoC7QoGJkcqFL1tlKPY\nb7cKLcClpdVHrWAaj6yxi2y8MamBgTGsQcZEEUFZwYWnPwR5s6xIrUzLbwaRl8W6\nmSJiXqSBr9fP3ROULA/wlm9RiEarLQ73mDrSOuWlAoGBAIKzDtRx2AwHoJiEAotg\nFqb3YVY69gVD37rOzWQ3vZWGfAew9kdJ5Jw/GS69MEJasyPKEUyaG+gU0P8jUMM4\nDU0x4GnvjxTnNYJyTLBmdGxPvTRP65V4g2o4dJDOkEmsx81CO2lIgX8x7g5Y62fP\n3IiTU1M1qPsFkA9h2wL5i/pS\n-----END PRIVATE KEY-----\n`;
 
   return {
     type: 'service_account',
-    project_id: process.env.GOOGLE_PROJECT_ID,
-    private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
+    project_id: 'second-form-470618-e6',
+    private_key_id: '4f9d98643c0f90776c42a7444900257771354996',
     private_key: privateKey,
-    client_email: process.env.GOOGLE_CLIENT_EMAIL,
-    client_id: process.env.GOOGLE_CLIENT_ID,
+    client_email: 'viron-solar@second-form-470618-e6.iam.gserviceaccount.com',
+    client_id: '114078082170109021921',
     auth_uri: 'https://accounts.google.com/o/oauth2/auth',
     token_uri: 'https://oauth2.googleapis.com/token',
     auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
-    client_x509_cert_url: process.env.GOOGLE_CLIENT_X509_CERT_URL,
+    client_x509_cert_url: 'https://www.googleapis.com/robot/v1/metadata/x509/viron-solar%40second-form-470618-e6.iam.gserviceaccount.com',
   };
 };
 
 export async function POST(request: NextRequest) {
   try {
-    // Check if environment variables are loaded
-    if (!process.env.GOOGLE_SHEET_ID || !process.env.GOOGLE_CLIENT_EMAIL || !process.env.GOOGLE_PRIVATE_KEY) {
-      console.error('Missing environment variables:');
-      console.error('GOOGLE_SHEET_ID:', process.env.GOOGLE_SHEET_ID ? 'SET' : 'NOT SET');
-      console.error('GOOGLE_CLIENT_EMAIL:', process.env.GOOGLE_CLIENT_EMAIL ? 'SET' : 'NOT SET');
-      console.error('GOOGLE_PRIVATE_KEY:', process.env.GOOGLE_PRIVATE_KEY ? 'SET' : 'NOT SET');
-
-      return NextResponse.json(
-        { error: 'Server configuration error. Environment variables not loaded.' },
-        { status: 500 }
-      );
-    }
+    // Using hardcoded credentials for testing
 
     const formData = await request.json();
 
