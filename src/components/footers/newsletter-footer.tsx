@@ -48,19 +48,19 @@ const contactInfo = [
   { 
     icon: Phone, 
     label: "Phone", 
-    value: "+91 99999 88888",
-    href: "tel:+919999988888"
+    value: "+91 8121378181 / +91 8121478181",
+    href: "tel:+918121378181"
   },
   { 
     icon: Mail, 
     label: "Email", 
-    value: "info@vironsolar.com",
-    href: "mailto:info@vironsolar.com"
+    value: "contact@vironsolar.com",
+    href: "mailto:contact@vironsolar.com"
   },
 ];
 
 const offices = [
-  { city: "Hyderabad", address: "Banjara Hills, Hyderabad - 500034" },
+  { city: "Hyderabad", address: "Door No 51, Raghavendra Environ, Rd No 3, Sri Shivaganga colony, Hyderabad - 500074" },
 ];
 
 export const NewsletterFooter = () => {
@@ -71,12 +71,11 @@ export const NewsletterFooter = () => {
         <div className="mb-10 flex flex-col items-start justify-between gap-10 border-b pb-10 sm:mb-16 sm:pb-12 md:flex-row">
           <div className="w-full max-w-full sm:max-w-sm">
             <a href="#" onClick={(e) => e.preventDefault()} className="mb-6 inline-block">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-                  <span className="text-lg font-bold text-primary-foreground">K</span>
-                </div>
-                <span className="text-2xl font-bold text-foreground">Viron Solar</span>
-              </div>
+              <img 
+                src="/logo.png" 
+                alt="Viron Solar" 
+                className="h-12 w-auto"
+              />
             </a>
             <p className="mb-8 text-base text-muted-foreground">
               Leading India's solar revolution with affordable, reliable solar solutions for homes and businesses. Switch to clean energy and start saving today.

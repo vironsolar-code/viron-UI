@@ -8,6 +8,9 @@ import { TopNavbar } from "@/components/navbars/top-navbar";
 export const metadata: Metadata = {
   title: "Viron Solar",
   description: "Viron Solar is a leading provider of solar energy solutions, specializing in residential and commercial solar panel installations. Our expert team delivers high-efficiency solar systems designed to lower electricity bills and reduce carbon emissions. With cutting-edge technology and personalized service, Viron Solar helps you harness clean, renewable energy for a sustainable future. Choose Viron Solar for reliable solar power, professional installation, and long-term savings.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

@@ -69,9 +69,11 @@ export function TopNavbar() {
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <a href={logo.url} className="flex items-center gap-2" title={logo.title}>
-          <span className="text-xl font-bold text-[var(--color-neutral-black)]">
-            Viron Solar
-          </span>
+          <img 
+            src="/logo.png" 
+            alt="Viron Solar" 
+            className="h-8 w-auto"
+          />
         </a>
 
         {/* Desktop navigation */}
